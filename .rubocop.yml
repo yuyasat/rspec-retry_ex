@@ -1,0 +1,16 @@
+AllCops:
+  Exclude:
+    - rspec-retry_ex.gemspec
+    - tmp/**/*
+
+Metrics/LineLength:
+  Max: 100
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Layout/IndentationConsistency:
+  EnforcedStyle: normal
