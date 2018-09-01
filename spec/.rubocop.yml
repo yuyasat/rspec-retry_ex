@@ -1,0 +1,14 @@
+inherit_from:
+  - ../.rubocop.yml
+
+AllCops:
+  Exclude:
+    - spec_helper.rb
+
+# Allow using `{...}` anytime
+Style/BlockDelimiters:
+  Enabled: false
+
+# BlockLength almost equals to MethodLength in spec files
+Metrics/BlockLength:
+  Max: 200
