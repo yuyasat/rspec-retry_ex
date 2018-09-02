@@ -2,6 +2,9 @@ AllCops:
   Exclude:
     - rspec-retry_ex.gemspec
     - tmp/**/*
+    - Rakefile
+    - Gemfile
+    - spec/spec_helper.rb
 
 Metrics/LineLength:
   Max: 100
@@ -17,3 +20,9 @@ Layout/IndentationConsistency:
 
 Metrics/CyclomaticComplexity:
   Max: 10
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

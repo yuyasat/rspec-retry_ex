@@ -24,6 +24,7 @@ before_script:
   - ./cc-test-reporter before-build
 script:
   - bundle exec rspec spec
+  - rubocop
 after_script:
   - |
     if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
