@@ -5,6 +5,13 @@ rvm:
   - 2.3.7
   - 2.4.4
   - 2.5.1
+gemfile:
+  - gemfiles/rspec_33x.gemfile
+  - gemfiles/rspec_34x.gemfile
+  - gemfiles/rspec_35x.gemfile
+  - gemfiles/rspec_36x.gemfile
+  - gemfiles/rspec_37x.gemfile
+  - gemfiles/rspec_38x.gemfile
 branches:
   only:
     - master
