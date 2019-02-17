@@ -26,11 +26,13 @@ module RSpec
 
       def call_around_retry(around_retry)
         return if around_retry.nil?
+
         around_retry.call
       end
 
       def success_message
         return unless @counter > 1
+
         message = "Congratulations! #{ordinalize(@counter)} try has succeeded!.\n"
         RSpec.configuration.reporter.message(message)
       end
