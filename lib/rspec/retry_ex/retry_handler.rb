@@ -13,7 +13,7 @@ module RSpec
         @counter += 1
         yield
         success_message
-      rescue RSpec::Expectations::ExpectationNotMetError => e
+      rescue RSpec::Expectations::ExpectationNotMetError, Selenium::WebDriver::Error::WebDriverError => e
         call_around_retry(after_retry)
         failure_message(e, count)
         retry if @counter < count
