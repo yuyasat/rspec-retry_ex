@@ -64,6 +64,35 @@ scenario "Some scenario" do
     expect(page).to have_select("ward", selected: "Sumida")
   end
 end
+
+## Configuration
+
+Errors to retry is customizable.
+Only RSpec::Expectations::ExpectationNotMetError is only retried by default.
+
+Here is an example of configuration in `spec_helper.rb` or `rails_helper.rb`.
+
+```ruby
+RSpec.configure do |config|
+  config.rspec_retry_ex_retry_errors = [
+    RSpec::Expectations::ExpectationNotMetError,
+    Selenium::WebDriver::Error::WebDriverError
+  ]
+end
+```
+
+Or options for `retry_ex`.
+
+```ruby
+scenario "Some scenario" do
+  visit "/some_page"
+
+  fill_in "postcode", with: "1300012"
+  retry_ex(count: 3, retry_errors: [Selenium::WebDriver::Error::WebDriverError]) do
+    expect(page).to have_select("ward", selected: "Sumida")
+  end
+end
+
 ```
 
 ## Contributing
