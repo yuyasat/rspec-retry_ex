@@ -6,6 +6,7 @@ module RSpec
         @before_retry = options[:before_retry]
         @after_retry  = options[:after_retry]
         @counter      = 0
+        @retry_errors = initialize_retry_errors(options[:retry_errors])
       end
 
       def run
@@ -13,7 +14,7 @@ module RSpec
         @counter += 1
         yield
         success_message
-      rescue RSpec::Expectations::ExpectationNotMetError, Selenium::WebDriver::Error::WebDriverError => e
+      rescue *@retry_errors => e
         call_around_retry(after_retry)
         failure_message(e, count)
         retry if @counter < count
@@ -63,6 +64,16 @@ module RSpec
         end
       end
       # rubocop:enable Metrics/MethodLength
+
+      def initialize_retry_errors(retry_errors)
+        if retry_errors.is_a?(Array) && !retry_errors.empty?
+          retry_errors
+        elsif !RSpec.configuration.rspec_retry_ex_retry_errors.empty?
+          RSpec.configuration.rspec_retry_ex_retry_errors
+        else
+          [RSpec::Expectations::ExpectationNotMetError]
+        end
+      end
     end
   end
 end

@@ -113,6 +113,62 @@ describe RSpec::RetryEx do
     end
   end
 
+  describe "customize retry_errors" do
+    context "when no configuration" do
+      it "should raise error" do
+        expect {
+          retry_ex(count: 2) do
+            1 / 0
+          end
+        }.to raise_error(ZeroDivisionError)
+      end
+    end
+
+    context "when rescue ZeroDivisionError with configulation" do
+      before do
+        RSpec.configuration.rspec_retry_ex_retry_errors = [ZeroDivisionError]
+      end
+
+      after do
+        RSpec.configuration.rspec_retry_ex_retry_errors = []
+      end
+
+      let(:retry_count) { 2 }
+
+      it "should not raise error and count_up" do
+        # rubocop:disable Lint/HandleExceptions
+        begin
+          retry_ex(count: retry_count) do
+            count_up
+            1 / 0
+          end
+        rescue ZeroDivisionError
+        end
+        # rubocop:enable Lint/HandleExceptions
+
+        expect(count).to eq retry_count
+      end
+    end
+
+    context "when rescue ZeroDivisionError as retry_ex options" do
+      let(:retry_count) { 2 }
+
+      it "should not raise error and count_up" do
+        # rubocop:disable Lint/HandleExceptions
+        begin
+          retry_ex(count: retry_count, retry_errors: [ZeroDivisionError]) do
+            count_up
+            1 / 0
+          end
+        rescue ZeroDivisionError
+        end
+        # rubocop:enable Lint/HandleExceptions
+
+        expect(count).to eq retry_count
+      end
+    end
+  end
+
   describe "before_retry/after_retry" do
     let(:mock) { double("Before Retry Mock") }
     let(:around_retry) { -> { mock.some_method } }
