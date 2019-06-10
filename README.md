@@ -8,7 +8,7 @@ RSpec::RetryEx retrys failing rspec "expect" instead of "example", "it" or "scen
 ## Motivation
 Feature test or System test sometimes fails randomely. There are so many reasons for failing. One of them is that the browser does not response smoothly to JavaScript animation. However it responses somoothly in a few tries. As a result, a few retries should be executed in feature test of system test.
 
-Thanks to [spec-retry](https://github.com/NoRedInk/rspec-retry) gem, a few retries can be executed by "scenario" unit. However we sometimes want to try to retry by "expect" unit because the scenario is so long and most "expect"s usually pass and specific "expect" often fails.
+Thanks to [rspec-retry](https://github.com/NoRedInk/rspec-retry) gem, a few retries can be executed by "scenario" unit. However we sometimes want to try to retry by "expect" unit because the scenario is so long and most "expect"s usually pass and specific "expect" often fails.
 
 ## Installation
 
