@@ -1,3 +1,4 @@
+require "rspec/core"
 require "rspec/retry_ex/retry_handler"
 
 module RSpec
