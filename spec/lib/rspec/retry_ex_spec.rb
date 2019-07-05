@@ -81,9 +81,11 @@ describe RSpec::RetryEx do
         expect_any_instance_of(RSpec::Core::Reporter).to receive(:message).with(
           "1st try has failed.\n"
         )
+        puts "hogehoge#{__LINE__}"
         expect_any_instance_of(RSpec::Core::Reporter).to receive(:message).with(
           "2nd try has failed.\n=> \nexpected: false\n     got: true\n\n(compared using ==)\n"
         )
+        puts "hogehoge#{__LINE__}"
 
         # rubocop:disable Lint/HandleExceptions
         begin
