@@ -10,7 +10,7 @@ module RSpec
     end
 
     def retry_ex(**options)
-      handler = RetryHandler.new(options)
+      handler = RetryHandler.new(**options)
       handler.run do
         yield
       end
