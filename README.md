@@ -1,5 +1,5 @@
 # RSpec::RetryEx
-[![Build Status](https://travis-ci.org/yuyasat/rspec-retry_ex.svg?branch=master)](https://travis-ci.org/yuyasat/rspec-retry_ex)
+[![CircleCI](https://circleci.com/gh/yuyasat/rspec-retry_ex/tree/master.svg?style=svg)](https://circleci.com/gh/yuyasat/rspec-retry_ex/tree/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e5524b7a5cd965dd362e/maintainability)](https://codeclimate.com/github/yuyasat/rspec-retry_ex/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e5524b7a5cd965dd362e/test_coverage)](https://codeclimate.com/github/yuyasat/rspec-retry_ex/test_coverage)
 
