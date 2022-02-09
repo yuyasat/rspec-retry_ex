@@ -1,0 +1,46 @@
+version: 2
+jobs:
+  setup_and_run_test_on_2_7_3:
+    parallelism: 1
+    docker:
+      - image: circleci/ruby:2.7.3
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+    steps:
+      - checkout
+      - run:
+          name: echo ruby version
+          command: ruby --version
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - restore_cache:
+          keys:
+            - v1-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "rspec-retry_ex.gemspec" }}
+            - v1-gem-cache-{{ arch }}-{{ .Branch }}-
+            - v1-gem-cache-{{ arch }}-
+      - run:
+          name: Bundle Install
+          command: bundle install --path vendor/bundle --clean
+      - save_cache:
+          key: v1-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "rspec-retry_ex.gemspec" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Run rspec in parallel
+          command: |
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      # Save test results for timing analysis
+      - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+          path: test_results
+workflows:
+  version: 2
+  setup_and_run_test:
+    jobs:
+      - setup_and_run_test_on_2_7_3
