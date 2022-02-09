@@ -81,10 +81,20 @@ describe RSpec::RetryEx do
         expect_any_instance_of(RSpec::Core::Reporter).to receive(:message).with(
           "1st try has failed.\n"
         )
-        expect_any_instance_of(RSpec::Core::Reporter).to receive(:message).with(
-          "2nd try has failed.\n=> \nexpected: false\n     got: true\n\n(compared using ==)\n"
-        )
+        expect_any_instance_of(RSpec::Core::Reporter).to receive(:message).with(<<~MESSAGE.chomp)
+          2nd try has failed.
+          =>
+          expected: false
+               got: true
 
+          (compared using ==)
+
+          Diff:\e[0m
+          \e[0m\e[34m@@ -1 +1 @@
+          \e[0m\e[31m-false
+          \e[0m\e[32m+true
+          \e[0m
+        MESSAGE
         # rubocop:disable Lint/HandleExceptions
         begin
           retry_ex(count: 2) do

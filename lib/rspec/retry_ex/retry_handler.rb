@@ -40,7 +40,7 @@ module RSpec
 
       def failure_message(error, count)
         message = "#{ordinalize(@counter)} try has failed.\n"
-        message += "=> #{error}" if @counter == count
+        message += "=>#{error}" if @counter == count
         RSpec.configuration.reporter.message(message)
       end
 
